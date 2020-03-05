@@ -1,32 +1,27 @@
 # Site settings
-title: BY Blog
-SEOTitle: 柏荧的博客 | BY Blog
+title: 精神之源
+SEOTitle: 高强的博客
 header-img: img/post-bg-desk.jpg
-email: qiubaiying@gmail.com
-description: "Every failure is leading towards success."
-keyword: "BY, BY Blog, 柏荧的博客, qiubaiying, 邱柏荧, iOS, Apple, iPhone"
-url: "http://qiubaiying.github.io"          # your host, for absolute URL
+email: peiqianggao@foxmail.com
+description: "独立之精神，自由之思想"
+keyword: "Gaopq, Gaopq Blog, 高强的博客, gaopq, peiqianggao, 高沛强, 高强, Java, 独立之精神, 自由之思想"
+url: "https://peiqiangao.github.io"
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/qiubaiying/qiubaiying.github.io.git" # you code repository
+github_repo: "https://github.com/peiqianggao/peiqianggao.github.io.git" # you code repository
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "Goals determine what you going to be!"
-sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
-
-
+sidebar-about-description: "实践出真知"
+sidebar-avatar: /img/centos_sidebar.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # SNS settings
 RSS: false
 # weibo_username:     qiubaiying
-zhihu_username:     qiubaiying
-github_username:    qiubaiying
-facebook_username:  baiying.qiu.7
-jianshu_username:   e71990ada2fd
+zhihu_username:     gao1011
+github_username:    peiqianggao
+#facebook_username:  gaopq
+jianshu_username:   8ba24037c555
 #twitter_username:   qiubaiying
-
-
-
 
 # Build settings
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
