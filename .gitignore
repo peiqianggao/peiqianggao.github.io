@@ -67,4 +67,5 @@ _site
 mvnw
 mvnw.cmd
 .mvn/
+.jekyll-cache
 TODO.md
