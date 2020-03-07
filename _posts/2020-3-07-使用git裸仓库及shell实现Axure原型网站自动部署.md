@@ -12,17 +12,22 @@ tags:
     - Shell实战
 ---
 
-# 技术栈
-Tech		|Usage
-------------|---------------
-git			|构建裸仓库用于存放钩子/文件仓库
-shell		|用于更新项目原型版本及提供给不熟悉git操作的产品同事更新原型
-html		|用于根据js配置文件展示项目原型及版本
-js			|用于存放所有项目的版本配置, 供html及shell脚本解析调用
-nginx		|HTTP服务器用于配置web域名访问及简单账户密码限制
-AxureRP		|产品同学用于生成用于原型预览的HTML文件
+### 技术栈
+- Git
+    - 构建裸仓库用于存放钩子/文件仓库
+- Shell		
+    - 用于更新项目原型版本及提供给不熟悉git操作的产品同事更新原型
+- HTML		
+    - 用于根据js配置文件展示项目原型及版本
+- Js			
+    - 用于存放所有项目的版本配置, 供html及shell脚本解析调用
+- Nginx		
+    - HTTP服务器用于配置web域名访问及简单账户密码限制
+- AxureRP		
+    - 产品同学用于生成用于原型预览的HTML文件
 ***
-# Bare repository(用于存放钩子，相当于中央仓库)
+### 中央仓库
+用于存放钩子，相当于中央仓库
 ```
 cd /data/bare_repo
 git init --bare rp.git
@@ -41,21 +46,26 @@ git pull origin master
 exit 0
 --- contents end ----
 ```
-# Local repository(用于存放供web访问的文件)
+### 本地仓库
+用于存放供web访问的文件
 ```
 cd /data/prototype
 git init
 git remote add origin /data/bare_repo/rp.git
 ```
 ***
-# 项目结构(/data/prototype 下)
-* config: 用于存放项目配置
-* rp: 用于存放项目原型 HTML 文件
-* scripts: 存放提供给产品同事执行的 shell 脚本，用于更新原型文件或原型版本
-* index.html/version.html: web页面入口，用于页面展示
+### 项目结构
+* config
+    -  用于存放项目配置
+* rp
+    - 用于存放项目原型 HTML 文件
+* scripts
+    - 存放提供给产品同学执行的 shell 脚本，以及当前待运行脚本的隐藏备份文件
+* index.html/version.html
+    - web页面入口，用于页面展示所有产品的原型及版本
 
-## 代码样例
-* config/properties.js
+### 代码样例
+**config/properties.js**
 ```
 var rpVersion = {
   mmb: [0.1, 0.2],
@@ -69,16 +79,15 @@ var rpVersion = {
   ddysXbld: [2.13]
 }
 ``` 
-* scripts/git_rp_repo_sync.sh
+
+**scripts/git_rp_repo_sync.sh**
 ``` 
 #!/bin/bash
 # encoding: utf-8
 ###################################################
 # Author:                 gaopq
-# Version:                0.01
+# Version:                0.03
 # Email:                  peiqianggao@gmail.com
-# Org:                    DDYS
-# Date:                   2017-01-10 18:23:34
 # ChangeLog:              add versions info for projects
 # ChangeLog:              fixed bugs when this script updated itself and other user execute it before pull and update it.
 # Description:            更新原型系统请先在 rp 文件夹下对应项目文件夹下创建代表版本的文件夹, 并把原型HTML文件生成到该文件夹下再执行本脚本
@@ -86,6 +95,7 @@ var rpVersion = {
 CONF_FILE=$(dirname $0)/../config/properties.js
 RP_DIR="$(dirname $0)/../"
 TMP_SHELL_NAME=".tmp.sh"
+
 # 获取所有项目名
 get_projects(){
    while read line
@@ -97,6 +107,7 @@ get_projects(){
    done < $CONF_FILE
    echo $projs
 }
+
 # 获取某个项目的现有版本号, param: project_name
 get_versions(){
     [[ $# -ne 1 ]] && return 1
@@ -104,6 +115,7 @@ get_versions(){
     versions=$(grep -w $proj $CONF_FILE | awk -F: '{print $2}')
     echo $versions | sed "s/ //g;s/[]\[,]/ /g;s/'//g;"
 }
+
 # 给某个项目添加一个版本, params: project_name, new_version
 add_version(){
     [[ $# -ne 2 ]] && return 1
@@ -122,6 +134,7 @@ add_version(){
         return 0
     fi
 }
+
 # 通过 git 上传文件
 rp_git_sync(){
     git add -A :/
@@ -129,6 +142,7 @@ rp_git_sync(){
     echo -e "\e[1;32m][INFO]Waiting for updating and pushing ...\e[0m"
     git push origin master && echo -e "\e[1;32m$(date +'%Y-%m-%d %H:%M:%S') updated successfully.\e[0m"
 }
+
 # 从仓库更新文件并判断本shell文件是否在被更新的列表中
 git_pull_test_shell_script_if_updated(){
     # shell_name=$(basename $0)
@@ -139,6 +153,7 @@ git_pull_test_shell_script_if_updated(){
     git pull origin master
     [[ $? -ne 0 ]] && exec bash scripts/${TMP_SHELL_NAME}
 }
+
 # 开始工作
 git_pull_test_shell_script_if_updated
 echo -e "\e[1;32m\nPlease select project (select one and update all ^_^)\e[0m"
@@ -159,7 +174,7 @@ done
 exit 0
 ```
 
-* Nginx 配置
+### `Nginx` 配置
 ```
 server {
         listen       80;
@@ -169,12 +184,11 @@ server {
         access_log /data/logs/nginx/my_domain_name.log main;
         location ^~ / {
             try_files $uri $uri/ /index.html?$args;
-			# Before this: htpasswd -c $NGINX_PATH/passwd_db/passwd.db username
+			# 生成简单授权账号密码: htpasswd -c $NGINX_PATH/passwd_db/passwd.db username
             auth_basic "Input Password";
             auth_basic_user_file $NGINX_PATH/passwd_db/passwd.db;
         }
 
-		# avoid accessing shell scripts from web 
         location ^~ /scripts {
             deny all;
         }
@@ -188,12 +202,13 @@ server {
 }
 ```
 ***
-# Problems and solutions
-* properties.js 文件中版本号可用单引号或双引号括起，便于 js 解析
-* 用户在执行本 shell 是发现本 shell 文件在远程仓库被修改， git pull 的时候报错
+### 问题解决
+* properties.js 
+    > 1. 文件中版本号需要使用单引号或双引号括起，便于 `js` 解析
+* 用户在执行本 `shell` 是发现本 `shell` 文件在远程仓库被修改， `git pull` 的时候报错
 	> 1. 每次执行脚本前若发现执行的不是备份版，则备份一次本脚本
-	> 2. 发现 git pull 失败时默认认为是本 shell 在 pull 列表中，则使用 exec 执行备份的脚本
-* 用户端配置
+	> 2. 发现 `git pull` 失败时默认认为是本 `shell` 在待更新的数据中，则使用 `exec` 执行备份的脚本
+### 用户端配置
 
 ```
 # server 端先配置一个可以访问 /data/bare_repo 和 /data/prototype 的用户
@@ -206,16 +221,16 @@ git pull origin master
 # 使用: 
 # 在 rp 文件夹下对应项目文件夹下创建代表版本的文件夹, 并把原型HTML文件生成到该文件夹下
 # 直接将 scripts 下的 git_rp_repo_sync.sh 拖到 git-bash 或 terminal 中执行即可
-# 可能需要: chmod +r git_rp_repo_sync.sh
+# 可能需要: chmod +x git_rp_repo_sync.sh
 ```
 ***
-# 效果预览
-* web
+### 效果预览
+**Web**
 
 ![rp_index.png](http://upload-images.jianshu.io/upload_images/209514-bcc4b9071c6df911.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ![rp_versions.png](http://upload-images.jianshu.io/upload_images/209514-7a76c1451b984631.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-* shell 执行效果
+**客户端 `shell` 执行效果**
 
 ![rp_shell.png](http://upload-images.jianshu.io/upload_images/209514-2d4dfddf72734207.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
