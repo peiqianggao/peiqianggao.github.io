@@ -25,9 +25,9 @@ tags:
     - HTTP服务器用于配置web域名访问及简单账户密码限制
 - AxureRP		
     - 产品同学用于生成用于原型预览的HTML文件
-***
+
 ### 中央仓库
-用于存放钩子，相当于中央仓库
+**用于存放钩子，相当于中央仓库**
 ```
 cd /data/bare_repo
 git init --bare rp.git
@@ -53,7 +53,7 @@ cd /data/prototype
 git init
 git remote add origin /data/bare_repo/rp.git
 ```
-***
+
 ### 项目结构
 * config
     -  用于存放项目配置
@@ -201,7 +201,7 @@ server {
         }
 }
 ```
-***
+
 ### 问题解决
 * properties.js 
     > 1. 文件中版本号需要使用单引号或双引号括起，便于 `js` 解析
