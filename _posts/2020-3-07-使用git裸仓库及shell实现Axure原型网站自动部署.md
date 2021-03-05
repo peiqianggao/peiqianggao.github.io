@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      使用git裸仓库及shell实现Axure原型网站自动部署
+title:      使用git裸仓库及shell实现Axure原型网站自动发布
 subtitle:   解决更新仓库时运行的shell脚本本身在更新范围内的问题
 date:       2020-03-07
 author:     gaopq
@@ -227,10 +227,9 @@ git pull origin master
 ### 效果预览
 **Web**
 
-![rp_index.png](http://upload-images.jianshu.io/upload_images/209514-bcc4b9071c6df911.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![首页](img/article/0001.png)
 
-![rp_versions.png](http://upload-images.jianshu.io/upload_images/209514-7a76c1451b984631.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
+![详情页](img/article/0002.png)
 **客户端 `shell` 执行效果**
 
-![rp_shell.png](http://upload-images.jianshu.io/upload_images/209514-2d4dfddf72734207.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![产品经理端执行效果](img/article/0003.png)
