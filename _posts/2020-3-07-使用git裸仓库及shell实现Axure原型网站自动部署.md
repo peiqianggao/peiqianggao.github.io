@@ -1,4 +1,5 @@
 ---
+id: 1614937561
 layout:     post
 title:      使用git裸仓库及shell实现Axure原型网站自动发布
 subtitle:   解决更新仓库时运行的shell脚本本身在更新范围内的问题
@@ -227,9 +228,9 @@ git pull origin master
 ### 效果预览
 **Web**
 
-![首页](img/article/0001.png)
+![首页](/img/article/0001.png)
 
-![详情页](img/article/0002.png)
+![详情页](/img/article/0002.png)
 **客户端 `shell` 执行效果**
 
-![产品经理端执行效果](img/article/0003.png)
+![产品经理端执行效果](/img/article/0003.png)
