@@ -2,8 +2,8 @@
 layout:     post
 title:      SpringBoot集成mybatis-plus教程
 subtitle:   集成最新 spring-mybatis-plus-starter, 实现增删改查, 分页, 跨表查询等功能
-date:       2020-04-17
-author:     gaopq
+date:       2020-04-17 10:15:00
+author:     高强
 header-img: img/post-bg-miui6.jpg
 catalog: true
 tags:

@@ -3,8 +3,8 @@ id: 1614937561
 layout:     post
 title:      使用git裸仓库及shell实现Axure原型网站自动发布
 subtitle:   解决更新仓库时运行的shell脚本本身在更新范围内的问题
-date:       2020-03-07
-author:     gaopq
+date:       2020-03-07 09:01:00
+author:     高强
 header-img: img/post-bg-debug.png
 catalog: true
 tags:
