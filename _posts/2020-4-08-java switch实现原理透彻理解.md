@@ -2,7 +2,7 @@
 layout:     post
 title:      Java switch实现原理透彻理解
 subtitle:   深入分析作用于 switch 下各种数据类型的实现原理
-date:       2020-04-08 15:55:00
+date:       2020-04-08
 author:     高强
 header-img: img/post-bg-map.jpg
 catalog: true
