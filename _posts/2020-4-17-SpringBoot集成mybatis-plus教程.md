@@ -12,14 +12,14 @@ tags:
     - 教程
 ---
 
-#### 代码仓库
+### 代码仓库
 - [Github](https://github.com/peiqianggao/spring-boot-mybatis-plus-example)
 - [Gitee](https://gitee.com/gaopq/springboot-mybatis-plus-example)
 
-#### 项目结构
+### 项目结构
 ![](https://i.loli.net/2020/04/18/4sLMAdnGwSHCjDx.png)
 
-#### 项目依赖
+### 项目依赖
 - 开发框架 springboot
   - 2.2.6.RELEASE
 - 接口文档 swagger-spring-boot-starter
@@ -30,17 +30,19 @@ tags:
   - 3.3.1.tmp
 - lombok
 
-#### 数据准备
-- 创建数据库(本案例使用 `Docker` 部署的MySQL5.7)
+### 数据准备
+#### 创建数据库(本案例使用 `Docker` 部署的MySQL5.7)
 ```mysql
 create database `mybatis_plus_example` character set utf8mb4 collate utf8mb4_general_ci;
 ```
-- 创建用户并授权
+
+#### 创建用户并授权
 ```mysql
 create user 'test'  identified by 'xxx_xxx2020';
 grant all on `mybatis_plus_example`.* to test@'%';
 ```
-- 建表
+
+#### 建表
 ```mysql
 CREATE TABLE `user` (
     `id`      int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -64,8 +66,9 @@ CREATE TABLE `user_extension` (
 ) COMMENT ='用户扩展信息';
 ```
 
+### 代码逻辑
 #### 配置类
-- `MybatisPlusConfig` 注入分页插件
+`MybatisPlusConfig` 注入分页插件
 ```java
 package me.gaopq.demo.mbp.example.config;
 
@@ -105,7 +108,7 @@ public class MybatisPlusConfig {
 ```
 
 #### 逻辑层
-- 创建 `User` 实体类, `UserExtension` 实体类可参考 `User` 编写, 其他类同理
+创建 `User` 实体类, `UserExtension` 实体类可参考 `User` 编写, 其他类同理
 ```java
 package me.gaopq.demo.mbp.example.entity;
 
@@ -151,7 +154,8 @@ public class User implements Serializable {
 }
 
 ```
-- 创建 `UserMapper` 接口
+
+创建 `UserMapper` 接口
 ```java
 package me.gaopq.demo.mbp.example.mapper;
 
@@ -167,9 +171,9 @@ public interface UserMapper extends BaseMapper<User> {
 ```
 
 #### 分页实现
-- `User` 表内分页
+`User` 表内分页
 
-   ```
+```
     @Override
     public Page<UserInfoPageDTO> pageUserInfo(Integer pageNum, Integer pageSize) {
         Page<User> page = this.page(new Page<>(pageNum, pageSize));
@@ -181,37 +185,39 @@ public interface UserMapper extends BaseMapper<User> {
 
         return pageRet;
     } 
-   ```
+  ```
 
-- `User` 和 `UserExtension` 联表分页
+`User` 和 `UserExtension` 联表分页
 
-    ```
+```
     @Select("select u.id, u.name, u.city, u.phone, ue.email, ue.introduction, ue.eng_name as engName from user u " +
             "left join user_extension ue on u.id = ue.id order by u.id asc")
     Page<UserDetailInfoPageDTO> pageUserDetailInfo(Page<User> page);
-    ```
+```
 
-#### 操作示例
-- 启动项目, 打开接口文档地址: http://127.0.0.1:8088/swagger-ui.html
-- 添加多个用户
+### 操作示例
+#### 启动项目, 打开接口文档地址
+http://127.0.0.1:8088/swagger-ui.html
+
+#### 添加多个用户
 ![](https://i.loli.net/2020/04/18/KIEc49okMVYt2BA.png)
-- 表内分页查询
 
-    ```
+#### 表内分页查询
+```shell
     curl -X GET "http://127.0.0.1:8088/api/user/info?pageNum=1&pageSize=5" -H "accept: */*"
-    ```
-- 跨表查询
+```
+#### 跨表查询
 ![](https://i.loli.net/2020/04/18/k5CYjZl84gc1itq.png)
 
-#### 注意要点
-- 字段命名使用了数据库关键字如 `from`, `where` 的时候, 实体类中属性注解 `@TableField` 中应使用 `` 对字段名做转义
+### 注意要点
+字段命名使用了数据库关键字如 `from`, `where` 的时候, 实体类中属性注解 `@TableField` 中应使用 `` 对字段名做转义
 
-- mybatis(Plus) 封装的分页类 `Page` 默认开始值为 1, 如果业务上分页从 0 开始则需要另外转换页码
+mybatis(Plus) 封装的分页类 `Page` 默认开始值为 1, 如果业务上分页从 0 开始则需要另外转换页码
 
-- 分页查询需要注入分页插件 `PaginationInterceptor` 才能生效, 否则会默认按不分页按条件查出所有结果
+分页查询需要注入分页插件 `PaginationInterceptor` 才能生效, 否则会默认按不分页按条件查出所有结果
 
-- mybatis-plus 一般情况下不需要另外创建 `xxxMapper.xml`, 如特殊情况需要通过 xml 自定义 sql 时, 需要在配置文件通过 `mybatis-plus.mapper-locations` 指定 xml 的扫描路径
+mybatis-plus 一般情况下不需要另外创建 `xxxMapper.xml`, 如特殊情况需要通过 xml 自定义 sql 时, 需要在配置文件通过 `mybatis-plus.mapper-locations` 指定 xml 的扫描路径
 
-####  官方文档
+### 参考文档
 - [mybatis-plus](https://github.com/baomidou/mybatis-plus)
 - [mybatis-plus 使用手册](https://mp.baomidou.com/)
