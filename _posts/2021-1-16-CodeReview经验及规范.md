@@ -57,61 +57,61 @@ The biggest thing that makes Google’s code so good is simple: code review. At 
 #### 错误处理
 有没有很好的Error Handling？比如网络出错，IO出错。
 
-改动是不是对代码的提升
-
+#### 改动是不是对代码的提升
 新的改动是打补丁，让代码质量继续恶化，还是对代码质量做了修复
 
 #### 效率/性能
 关键算法的时间复杂度多少？有没有可能有潜在的性能瓶颈
 
-客户端程序 对频繁消息 和较大数据等耗时操作是否处理得当
+客户端程序对频繁消息和较大数据等耗时操作是否处理得当
 
-其中有一部分问题，比如一些设计原则， 可预见的效率问题， 开发模式一致性的问题 应该尽早在Design Review阶段解决。如果Design阶段没有解决，那至少在Code Review阶段也要把它找出来。
+#### 总结
+其中有一部分问题，比如一些设计原则， 可预见的效率问题， 开发模式一致性的问题，应该尽早在Design Review阶段解决。
+如果Design阶段没有解决，那至少在Code Review阶段也要把它找出来。
 
 ### Style
 #### 可读性
-
 衡量可读性的可以有很好实践的标准，就是Reviewer能否非常容易的理解这个代码。 如果不是，那意味着代码的可读性要进行改进。
 
 #### 命名
-
 命名对可读性非常重要，我倾向于函数名/方法名长一点都没关系，必须是能自我阐述的。
 英语用词尽量准确一点（哪怕有时候需要借助Google Translate，是值得的）
-函数长度/类长度
+
+#### 函数长度/类长度
 函数太长的不好阅读。 类太长了，比如超过了1000行，那你要看一下是否违反的“单一职责” 原则。
 
 #### 注释
-
 恰到好处的注释。 但更多我看到比较差质量的工程的一个特点是缺少注释。
 
 #### 参数个数
-
 不要太多， 一般不要超过3个。
 
 ### Review Your Own Code First
-
 跟著名的橡皮鸭调试法（Rubber Duck Debugging）一样，每次提交前整体把自己的代码过一遍非常有帮助，尤其是看看有没有犯低级错误。
 
 ## 如何进行Code Review
 ### 多问问题
 多问 “这块儿是怎么工作的？” “如果有XXX case，你这个怎么处理？”
 
-每次提交的代码不要太多，最好不要超过1000行，否则review起来效率会非常低
+#### 每次提交的代码不要太多
+最好不要超过1000行，否则review起来效率会非常低
 
-当面讨论代替Comments。 大部分情况下小组内的同事是坐在一起的，face to face的 code review是非常有效的
+#### 当面讨论代替Comments
+大部分情况下小组内的同事是坐在一起的，face to face的 code review是非常有效的
 
-区分重点，不要舍本逐末。 优先抓住 设计，可读性，健壮性等重点问题
+#### 区分重点，不要舍本逐末
+优先抓住设计、可读性、健壮性等重点问题
 
 ### 标签管理
-Mountain(Blocking + Immediate Action)：严重问题，必须马上采取行动
+- Mountain(Blocking + Immediate Action)：严重问题，必须马上采取行动
 
-Boulder(Blocking)：严重问题
+- Boulder(Blocking)：严重问题
 
-Pebble(Future Action)：不严重，但是需要后续改进
+- Pebble(Future Action)：不严重，但是需要后续改进
 
-Sand(Future Consideration)：不严重，但是需要有后续的思考
+- Sand(Future Consideration)：不严重，但是需要有后续的思考
 
-Dust(Take it or Leave it)：无关紧要，可做可不做
+- Dust(Take it or Leave it)：无关紧要，可做可不做
 
 ## Code Review的意识
 作为一个Developer , 不仅要Deliver working code, 还要Deliver maintainable code
